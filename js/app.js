@@ -51,16 +51,15 @@ function createTextNode(text) {
 }
 
 // Helper function to check if a certain section of the page i.e. (elem) is currently visible to the user
-function isInViewport(elem) {
+function isInViewport(el) {
     // This variable contains the coordinates of the passed-in element
-    var rect = elem.getBoundingClientRect();
+    var rect = el.getBoundingClientRect();
     // The root node of the document - i.e the whole page
     var html = document.documentElement;
-    // If the coordinates of our document are within 0 and the window's height/width, it must be visible
+    // If the coordinates of our document are within 100 pixels of the section's top and the window's height/width, it must be visible
     return (
-        rect.top >= 0 &&
         rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || html.clientHeight) &&
+        (rect.bottom + 100 <= (window.innerHeight || html.clientHeight) && rect.top >= 100) || (rect.top <= 100 && (rect.bottom + 100 >= (window.innerHeight || html.clientHeight))) &&
         rect.right <= (window.innerWidth || html.clientWidth)
     );
 };
